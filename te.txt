@@ -1,0 +1,573 @@
+# Tutorial Completo: Transformando o Zorin OS no Visual DeadSec de Watch Dogs 2
+
+Este guia detalhado transforma seu Zorin OS na estética hacker do grupo DeadSec do jogo Watch Dogs 2, com um visual cyberpunk completo incluindo cores neon, fontes digitais e elementos de interface futuristas.
+
+## 1️⃣ Preparação Inicial
+
+Primeiro, vamos instalar as ferramentas necessárias:
+
+```bash
+# Instalar ferramentas essenciais
+sudo apt update
+sudo apt install git curl wget unzip gnome-tweaks dconf-editor gconf-editor plank conky -y
+
+# Ferramentas de personalização adicionais
+sudo apt install lxappearance nitrogen picom rofi neofetch cmatrix -y
+```
+
+## 2️⃣ Tema e Paleta de Cores DeadSec
+
+### Instalação de Temas GTK
+
+```bash
+# Criar pastas de temas se não existirem
+mkdir -p ~/.themes ~/.icons ~/.fonts
+
+# Instalar tema Dracula (base escura)
+git clone https://github.com/dracula/gtk.git ~/.themes/Dracula
+
+# Instalar tema Cyberpunk Neon
+wget https://github.com/Roboron3042/Cyberpunk-Neon/releases/download/1.0/Cyberpunk-Neon.tar.xz
+tar -xf Cyberpunk-Neon.tar.xz -C ~/.themes/
+rm Cyberpunk-Neon.tar.xz
+```
+
+### Instalação de Ícones
+
+```bash
+# Instalar pacote de ícones Papirus (base)
+sudo add-apt-repository ppa:papirus/papirus
+sudo apt update && sudo apt install papirus-icon-theme -y
+
+# Instalar versão neon dos ícones
+wget https://github.com/Adapta-Projects/Papirus-Adapta/releases/download/20191022/Papirus-Adapta-Nokto.tar.xz
+tar -xf Papirus-Adapta-Nokto.tar.xz -C ~/.icons/
+rm Papirus-Adapta-Nokto.tar.xz
+
+# Cursor hacker
+git clone https://github.com/keeferrourke/capitaine-cursors.git
+cd capitaine-cursors
+./build.sh
+mkdir -p ~/.icons/capitaine-cursors
+cp -r dist/ ~/.icons/capitaine-cursors/
+cd .. && rm -rf capitaine-cursors
+```
+
+### Configuração do Tema
+
+Abra o aplicativo "Aparência" do Zorin OS:
+
+1. Vá em "Temas" e selecione "Dracula" como tema Global
+2. Vá em "Ícones" e selecione "Papirus-Adapta-Nokto"
+3. Vá em "Cursores" e selecione "capitaine-cursors"
+
+## 3️⃣ Fontes Estilo DeadSec
+
+```bash
+# Baixar fontes estilo hacker
+mkdir -p ~/fonts-temp
+cd ~/fonts-temp
+
+# Fonte principal para interface - similar à usada pelo DeadSec
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
+unzip Hack.zip -d ~/.fonts/
+
+# Fonte para terminal
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
+unzip FiraCode.zip -d ~/.fonts/
+
+# Fonte para textos estilizados do DeadSec
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip
+unzip SourceCodePro.zip -d ~/.fonts/
+
+# Atualizar cache de fontes
+fc-cache -fv
+cd && rm -rf ~/fonts-temp
+```
+
+### Configurar Fontes no Sistema
+
+```bash
+# Configurar fontes para o sistema
+gsettings set org.gnome.desktop.interface font-name 'Hack Nerd Font 10'
+gsettings set org.gnome.desktop.interface document-font-name 'Hack Nerd Font 10'
+gsettings set org.gnome.desktop.interface monospace-font-name 'FiraCode Nerd Font Mono 10'
+gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Hack Nerd Font Bold 10'
+```
+
+## 4️⃣ Dock e Barra de Tarefas Estilo Hacker
+
+### Configurar Plank Dock
+
+```bash
+# Instalar tema neon para o Plank
+mkdir -p ~/.local/share/plank/themes/
+git clone https://github.com/dikiaap/frost-plank-theme.git
+cd frost-plank-theme
+cp -r Frost-Plank-Theme/ ~/.local/share/plank/themes/
+cd .. && rm -rf frost-plank-theme
+
+# Configurar Plank
+dconf write /net/launchpad/plank/docks/dock1/theme "'Frost-Plank-Theme'"
+dconf write /net/launchpad/plank/docks/dock1/zoom-enabled true
+dconf write /net/launchpad/plank/docks/dock1/zoom-percent 150
+dconf write /net/launchpad/plank/docks/dock1/icon-size 48
+dconf write /net/launchpad/plank/docks/dock1/position "'bottom'"
+```
+
+Para iniciar o Plank automaticamente:
+1. Abra "Configurações" > "Inicialização"
+2. Adicione novo aplicativo > selecione "Plank"
+
+### Personalizar Barra Superior
+
+Para Zorin OS com GNOME:
+
+```bash
+# Instalar extensões GNOME
+sudo apt install gnome-shell-extensions chrome-gnome-shell -y
+
+# Adicionar customização à barra superior 
+gsettings set org.gnome.desktop.interface show-battery-percentage true
+gsettings set org.gnome.desktop.interface clock-show-seconds true
+gsettings set org.gnome.desktop.interface clock-show-date true
+```
+
+Visite https://extensions.gnome.org e instale:
+- "User Themes"
+- "Dash to Panel" ou "Dash to Dock"
+- "Dynamic Panel Transparency"
+- "Clipboard Indicator"
+- "NetSpeed"
+
+## 5️⃣ Terminal Customizado Estilo DeadSec
+
+### Configuração do Terminal
+
+```bash
+# Instalar ZSH
+sudo apt install zsh -y
+
+# Instalar Oh My Zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Instalar PowerLevel10k (tema de terminal hacker)
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+
+# Instalar plugins úteis
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
+
+Edite o arquivo ~/.zshrc:
+```bash
+nano ~/.zshrc
+```
+
+Modifique para:
+```
+ZSH_THEME="powerlevel10k/powerlevel10k"
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+```
+
+Configurações do perfil do terminal:
+1. Abra o Terminal e vá para "Preferências"
+2. Crie um novo perfil "DeadSec"
+3. Configure:
+   - Fundo: Transparência 15%
+   - Cor de fundo: #121212
+   - Cor de texto: #00FF41 (verde neon)
+   - Fonte: FiraCode Nerd Font Mono 10
+
+### Efeitos ASCII para o Terminal
+
+```bash
+# Adicionar neofetch ao .zshrc
+echo "neofetch" >> ~/.zshrc
+
+# Configurar cores do Neofetch com tema DeadSec
+mkdir -p ~/.config/neofetch
+cat > ~/.config/neofetch/config.conf << EOF
+print_info() {
+    info title
+    info underline
+    info "OS" distro
+    info "Host" model
+    info "Kernel" kernel
+    info "Uptime" uptime
+    info "Packages" packages
+    info "Shell" shell
+    info "Resolution" resolution
+    info "DE" de
+    info "WM" wm
+    info "WM Theme" wm_theme
+    info "Theme" theme
+    info "Icons" icons
+    info "Terminal" term
+    info "Terminal Font" term_font
+    info "CPU" cpu
+    info "GPU" gpu
+    info "Memory" memory
+    info "Disk" disk
+    info "Battery" battery
+    info "Font" font
+    info "Song" song
+    info cols
+}
+colors=(6 8 5 4 8 6)
+bold="on"
+underline_enabled="on"
+underline_char="━"
+separator="→"
+block_range=(0 15)
+color_blocks="on"
+block_width=3
+block_height=1
+ascii_distro="auto"
+ascii_colors=(27 39 45 63 93 207)
+EOF
+```
+
+## 6️⃣ Papéis de Parede e Animações DeadSec
+
+```bash
+# Criar pasta para papéis de parede
+mkdir -p ~/Imagens/DeadSec-Wallpapers
+
+# Baixar papéis de parede DeadSec
+wget -O ~/Imagens/DeadSec-Wallpapers/deadsec1.jpg https://wallpaperaccess.com/full/1267663.jpg
+wget -O ~/Imagens/DeadSec-Wallpapers/deadsec2.jpg https://wallpaperaccess.com/full/1267667.jpg
+wget -O ~/Imagens/DeadSec-Wallpapers/deadsec3.jpg https://wallpaperaccess.com/full/1925392.jpg
+wget -O ~/Imagens/DeadSec-Wallpapers/deadsec4.png https://wallpapercave.com/wp/wp6093473.png
+
+# Configurar papel de parede
+gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/Imagens/DeadSec-Wallpapers/deadsec1.jpg"
+```
+
+### Configuração do Conky
+
+```bash
+# Criar configuração do Conky estilo hacker
+mkdir -p ~/.config/conky
+cat > ~/.config/conky/deadsec.conf << EOF
+conky.config = {
+    alignment = 'top_right',
+    background = true,
+    border_width = 1,
+    cpu_avg_samples = 2,
+    default_color = '00FF41',
+    default_outline_color = '4D148C',
+    default_shade_color = '4D148C',
+    double_buffer = true,
+    draw_borders = false,
+    draw_graph_borders = true,
+    draw_outline = false,
+    draw_shades = false,
+    extra_newline = false,
+    font = 'Hack Nerd Font:size=8',
+    gap_x = 25,
+    gap_y = 15,
+    minimum_height = 5,
+    minimum_width = 5,
+    net_avg_samples = 2,
+    no_buffers = true,
+    out_to_console = false,
+    out_to_ncurses = false,
+    out_to_stderr = false,
+    out_to_x = true,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_transparent = false,
+    own_window_type = 'desktop',
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_argb_visual = true,
+    own_window_argb_value = 100,
+    own_window_colour = '000000',
+    show_graph_range = false,
+    show_graph_scale = false,
+    stippled_borders = 0,
+    update_interval = 1.0,
+    uppercase = false,
+    use_spacer = 'none',
+    use_xft = true,
+};
+
+conky.text = [[
+${alignc}${font Hack Nerd Font:size=20}DeadSec${font}
+${alignc}${font Hack Nerd Font:size=10}SISTEMA HACKEADO${font}
+${voffset 10}
+${font Hack Nerd Font:bold:size=8}SISTEMA ${hr 2}
+${font}${voffset 5}Hostname: ${alignr}${nodename}
+Kernel: ${alignr}${kernel}
+Uptime: ${alignr}${uptime}
+Temperatura CPU: ${alignr}${acpitemp}°C
+
+${font Hack Nerd Font:bold:size=8}PERFORMANCE ${hr 2}
+${font}${voffset 5}CPU Usage: ${alignr}${cpu}%
+${cpubar 4}
+RAM Usage: ${alignr}$mem/$memmax
+${membar 4}
+Swap Usage: ${alignr}$swap/$swapmax
+${swapbar 4}
+
+${font Hack Nerd Font:bold:size=8}ARMAZENAMENTO ${hr 2}
+${font}${voffset 5}/ ${alignr}${fs_used /}/${fs_size /}
+${fs_bar 4 /}
+IO Read: ${alignr}${diskio_read}
+IO Write: ${alignr}${diskio_write}
+
+${font Hack Nerd Font:bold:size=8}REDE ${hr 2}
+${font}${voffset 5}IP Local: ${alignr}${addr wlp3s0}
+Download: ${alignr}${downspeed wlp3s0}
+${downspeedgraph wlp3s0 20,240 4D148C 00FF41}
+Upload: ${alignr}${upspeed wlp3s0}
+${upspeedgraph wlp3s0 20,240 4D148C 00FF41}
+Total Down/Up: ${alignr}${totaldown wlp3s0}/${totalup wlp3s0}
+
+${font Hack Nerd Font:bold:size=8}PROCESSOS TOP ${hr 2}
+${font}${voffset 5}${top name 1}${alignr}${top cpu 1}%
+${top name 2}${alignr}${top cpu 2}%
+${top name 3}${alignr}${top cpu 3}%
+${top name 4}${alignr}${top cpu 4}%
+${top name 5}${alignr}${top cpu 5}%
+
+${font Hack Nerd Font:bold:size=8}MEMÓRIA TOP ${hr 2}
+${font}${voffset 5}${top_mem name 1}${alignr}${top_mem mem 1}%
+${top_mem name 2}${alignr}${top_mem mem 2}%
+${top_mem name 3}${alignr}${top_mem mem 3}%
+${top_mem name 4}${alignr}${top_mem mem 4}%
+${top_mem name 5}${alignr}${top_mem mem 5}%
+
+${font Hack Nerd Font:bold:size=8}MENSAGEM ${hr 2}
+${font}${voffset 5}${alignc}${exec date +"%d/%m/%Y %H:%M:%S"}
+${alignc}DedSec está observando. Nós não perdoamos.
+${alignc}Nós não esquecemos. Nós somos legião.
+]];
+EOF
+
+# Criar arquivo de inicialização do Conky
+mkdir -p ~/.config/autostart
+cat > ~/.config/autostart/conky.desktop << EOF
+[Desktop Entry]
+Type=Application
+Name=Conky
+Exec=conky -c ~/.config/conky/deadsec.conf
+StartupNotify=false
+Terminal=false
+Icon=conky
+Comment=Monitor do Sistema DeadSec
+Categories=System;
+EOF
+```
+
+## 7️⃣ Efeitos visuais cintilantes
+
+### Animação de Tela
+
+```bash
+# Instalar cmatrix para efeito Matrix
+sudo apt install cmatrix -y
+
+# Criar script para abrir terminal com efeito Matrix
+cat > ~/matrix-screensaver.sh << EOF
+#!/bin/bash
+gnome-terminal -- bash -c "cmatrix -a -b -C green; exec bash"
+EOF
+
+chmod +x ~/matrix-screensaver.sh
+```
+
+### Screensaver Personalizado
+
+```bash
+# Instalar xscreensaver
+sudo apt install xscreensaver xscreensaver-gl-extra xscreensaver-data-extra -y
+
+# Configuração do XScreenSaver
+cat > ~/.xscreensaver << EOF
+programs:                                                                 \\
+                maze -root                                        \\n\\
+                deco -root                                        \\n\\
+                cynosure -root                                    \\n\\
+                interference -root                                \\n\\
+EOF
+```
+
+## 8️⃣ Extensões e Ferramentas Adicionais
+
+### Rofi Menu (estilo hacker)
+
+```bash
+# Instalar Rofi
+sudo apt install rofi -y
+
+# Configurar Rofi com tema neon
+mkdir -p ~/.config/rofi
+cat > ~/.config/rofi/config.rasi << EOF
+configuration {
+    modi: "window,run,ssh,drun";
+    font: "Hack Nerd Font 10";
+    show-icons: true;
+    terminal: "gnome-terminal";
+    ssh-client: "ssh";
+    ssh-command: "{terminal} -e {ssh-client} {host}";
+    run-command: "{cmd}";
+    run-shell-command: "{terminal} -e {cmd}";
+    icon-theme: "Papirus-Adapta-Nokto";
+    drun-match-fields: "name,generic,exec,categories";
+    drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
+}
+
+* {
+    background-color: #000000;
+    border-color: #00FF41;
+    text-color: #00FF41;
+    spacing: 0;
+    width: 700px;
+    height: 400px;
+}
+
+inputbar {
+    border: 2px;
+    border-color: #00FF41;
+    padding: 1px;
+    children: [prompt, textbox-prompt-colon, entry, case-indicator];
+}
+
+prompt {
+    text-color: #4D148C;
+}
+
+textbox-prompt-colon {
+    expand: false;
+    str: ":";
+    text-color: #00FF41;
+}
+
+entry {
+    text-color: #00FF41;
+}
+
+listview {
+    border: 0px 0px 0px;
+    padding: 6px 0px 0px;
+    spacing: 2px;
+    fixed-height: 0;
+}
+
+element {
+    border: 0;
+    padding: 4px;
+}
+
+element selected {
+    background-color: #4D148C;
+}
+
+element-icon {
+    size: 18px;
+    margin: 0px 4px 0px 0px;
+}
+EOF
+```
+
+### Atalhos de Teclado
+
+Configure atalhos personalizados:
+1. Vá para "Configurações" > "Dispositivos" > "Teclado"
+2. Adicione atalho personalizado para rofi:
+   - Nome: "DeadSec Menu"
+   - Comando: `rofi -show drun`
+   - Atalho: `Super+D`
+3. Adicione atalho para efeito Matrix:
+   - Nome: "Matrix Effect"
+   - Comando: `~/matrix-screensaver.sh`
+   - Atalho: `Ctrl+Alt+M`
+
+## 9️⃣ Toques Finais
+
+### Script de Inicialização DeadSec
+
+```bash
+# Criar script de boas-vindas DeadSec
+cat > ~/.deadsec-welcome.sh << EOF
+#!/bin/bash
+echo -e "\e[32m"
+echo "██████╗ ███████╗ █████╗ ██████╗ ███████╗███████╗ ██████╗"
+echo "██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝"
+echo "██║  ██║█████╗  ███████║██║  ██║███████╗█████╗  ██║     "
+echo "██║  ██║██╔══╝  ██╔══██║██║  ██║╚════██║██╔══╝  ██║     "
+echo "██████╔╝███████╗██║  ██║██████╔╝███████║███████╗╚██████╗"
+echo "╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝ ╚═════╝"
+echo -e "\e[0m"
+echo -e "\e[35mSistema carregado. Nós não perdoamos. Nós não esquecemos.\e[0m"
+echo ""
+EOF
+
+chmod +x ~/.deadsec-welcome.sh
+
+# Adicionar ao .zshrc
+echo "~/.deadsec-welcome.sh" >> ~/.zshrc
+```
+
+### Mensagem de Login DeadSec
+
+```bash
+# Mensagem pré-login
+sudo bash -c 'cat > /etc/issue << EOF
+\e[32m
+██████╗ ███████╗ █████╗ ██████╗ ███████╗███████╗ ██████╗
+██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝
+██║  ██║█████╗  ███████║██║  ██║███████╗█████╗  ██║     
+██║  ██║██╔══╝  ██╔══██║██║  ██║╚════██║██╔══╝  ██║     
+██████╔╝███████╗██║  ██║██████╔╝███████║███████╗╚██████╗
+╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝ ╚═════╝
+\e[35m
+Hackeando o sistema... Carregando ambiente DeadSec...
+\e[0m
+
+EOF'
+```
+
+## 🔟 Configuração do Ambiente DeadSec Completo
+
+### Aplicar Todas as Mudanças
+
+```bash
+# Aplicar alterações sem reiniciar
+source ~/.zshrc
+killall -SIGUSR1 conky
+plank &
+
+# Iniciar Conky
+conky -c ~/.config/conky/deadsec.conf &
+```
+
+## 📋 Verificação Final
+
+Para completar a transformação:
+
+1. **Tela de Login**:
+   - Vá para "Configurações" > "Aparência" > "Tela de Login"
+   - Aplique o tema escuro e defina um wallpaper DeadSec
+
+2. **Som**:
+   - Defina efeitos sonoros similares aos do jogo (beeps e notificações digitais)
+
+3. **Screensaver**:
+   - Configure o XScreenSaver para iniciar automaticamente após alguns minutos
+
+4. **Ícones de Aplicativos**:
+   - Substitua os ícones dos aplicativos principais por versões neon-cyberpunk
+
+## 🎮 Resultado Final
+
+Seu Zorin OS agora tem a aparência completa do DeadSec de Watch Dogs 2, com:
+- Paleta de cores cyberpunk (preto, verde neon #00FF41, roxo digital #4D148C)
+- Interface hacker minimalista
+- Fontes monospace estilizadas
+- Terminal transparente com informações em tempo real
+- Monitores de sistema Conky ao estilo hacker
+- Animações e efeitos visuais inspirados no universo DeadSec
+
+Divirta-se com seu novo sistema operacional estilo hacker!
