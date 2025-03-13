@@ -1,581 +1,1435 @@
-# Tutorial Completo: Transformando o Zorin OS no Visual DeadSec de Watch Dogs 2
+# Guia Completo: Transformando ZorionOS no Estilo DedSec do Watch Dogs 1  
 
-Este guia detalhado transforma seu Zorin OS na estética hacker do grupo DeadSec do jogo Watch Dogs 2, com um visual cyberpunk completo incluindo cores neon, fontes digitais e elementos de interface futuristas.
+## Sumário  
+1. [Introdução ao Universo de Watch Dogs 1](#1-introdução-ao-universo-de-watch-dogs-1)  
+2. [Preparação do Sistema](#2-preparação-do-sistema)  
+3. [Paleta de Cores e Tema Visual](#3-paleta-de-cores-e-tema-visual)  
+4. [Instalação e Configuração de Fontes](#4-instalação-e-configuração-de-fontes)  
+5. [Personalização do Terminal](#5-personalização-do-terminal)  
+6. [Configuração do Dock e Barra de Tarefas](#6-configuração-do-dock-e-barra-de-tarefas)  
+7. [Wallpapers e Efeitos Visuais](#7-wallpapers-e-efeitos-visuais)  
+8. [Extensões GNOME Essenciais](#8-extensões-gnome-essenciais)  
+9. [Ferramentas de Monitoramento Estilo Vigilância](#9-ferramentas-de-monitoramento-estilo-vigilância)  
+10. [Toques Finais e Detalhes Estéticos](#10-toques-finais-e-detalhes-estéticos)  
+11. [Solução de Problemas Comuns](#11-solução-de-problemas-comuns)  
+12. [Conclusão](#12-conclusão)  
 
-## 1️⃣ Preparação Inicial
+## 1. Introdução ao Universo de Watch Dogs 1  
 
-Primeiro, vamos instalar as ferramentas necessárias:
+Diferentemente de Watch Dogs 2, que apresenta uma estética mais colorida e descontraída, o primeiro jogo da série Watch Dogs traz uma atmosfera sombria, urbana e distópica ambientada em Chicago. O visual do DedSec original é caracterizado por uma abordagem mais séria e minimalista, refletindo o tom mais obscuro do jogo.  
 
-```bash
-# Instalar ferramentas essenciais
-sudo apt update
-sudo apt install git curl wget unzip gnome-tweaks dconf-editor gconf-editor plank conky -y
+A estética de Watch Dogs 1 é definida por:  
 
-# Ferramentas de personalização adicionais
-sudo apt install lxappearance nitrogen picom rofi neofetch cmatrix -y
-```
+- **Paleta de cores**: Predominância de azul eletrônico, preto profundo e cinza metálico  
+- **Elementos visuais**: Interfaces de vigilância, efeitos de chuva digital e glitches sutis  
+- **Tipografia**: Fontes quadradas e técnicas, inspiradas em terminais militares e sistemas de segurança  
+- **Símbolos**: Logo ctOS (Central Operating System) e códigos hexadecimais  
+- **Ambiente**: Chicago noturna, frequentemente chuvosa e nebulosa  
 
-## 2️⃣ Tema e Paleta de Cores DeadSec
+| Elemento | Watch Dogs 1 | Watch Dogs 2 |  
+|----------|-------------|-------------|  
+| Paleta de Cores | Azul (#00a8e1), preto (#0a0a0a), cinza (#3a3a3a) | Verde neon (#4e7827), roxo, preto |  
+| Estilo Visual | Sério, minimalista, vigilância | Colorido, irreverente, hacker |  
+| Ambiente | Chicago urbana e chuvosa | São Francisco ensolarada |  
+| Interface | Sistema ctOS, monitoramento | Cultura hacker, redes sociais |  
+| Tom | Distópico, paranóico | Rebelde, descontraído |  
 
-### Instalação de Temas GTK
+> "Who says Linux cannot be beautiful? Today we'll be going over the top 10 best Linux docks that you must try."  
 
-```bash
-# Criar pastas de temas se não existirem
-mkdir -p ~/.themes ~/.icons ~/.fonts
-
-# Instalar tema Dracula (base escura)
-git clone https://github.com/dracula/gtk.git ~/.themes/Dracula
-
-# Instalar tema Cyberpunk Neon
-git clone https://github.com/Roboron3042/Cyberpunk-Neon.git  
-cd Cyberpunk-Neon  
-mkdir -p ~/.themes/Cyberpunk-Neon  
-cp -r theme/* ~/.themes/Cyberpunk-Neon/  
-cd .. && rm -rf Cyberpunk-Neon  
+Esta personalização vai transformar seu ZorionOS em um ambiente que remete ao universo sombrio e vigilante de Watch Dogs 1, onde a tecnologia é usada como ferramenta de controle e vigilância, mas também como meio de resistência.  
 
-# OU use outro tema neon (alternativa)  
-git clone https://github.com/daniruiz/flat-remix-gtk.git  
-cd flat-remix-gtk  
-cp -r Flat-Remix-GTK-Green-Dark ~/.themes/  
-cd .. && rm -rf flat-remix-gtk 
-```
-
-### Instalação de Ícones
+## 2. Preparação do Sistema  
 
-```bash
-# Instalar pacote de ícones Papirus (base)
-sudo add-apt-repository ppa:papirus/papirus
-sudo apt update && sudo apt install papirus-icon-theme -y
-
-# Instalar versão neon dos ícones
-wget https://github.com/Adapta-Projects/Papirus-Adapta/releases/download/20191022/Papirus-Adapta-Nokto.tar.xz
-tar -xf Papirus-Adapta-Nokto.tar.xz -C ~/.icons/
-rm Papirus-Adapta-Nokto.tar.xz
-
-# Cursor hacker
-git clone https://github.com/keeferrourke/capitaine-cursors.git
-cd capitaine-cursors
-./build.sh
-mkdir -p ~/.icons/capitaine-cursors
-cp -r dist/ ~/.icons/capitaine-cursors/
-cd .. && rm -rf capitaine-cursors
-```
+Antes de iniciarmos a personalização propriamente dita, precisamos preparar o ZorionOS instalando ferramentas essenciais que serão utilizadas durante o processo.  
 
-### Configuração do Tema
+### Instalação de Ferramentas Básicas  
 
-Abra o aplicativo "Aparência" do Zorin OS:
+```bash  
+# Atualizar o sistema  
+sudo apt update && sudo apt upgrade -y  
 
-1. Vá em "Temas" e selecione "Dracula" como tema Global
-2. Vá em "Ícones" e selecione "Papirus-Adapta-Nokto"
-3. Vá em "Cursores" e selecione "capitaine-cursors"
+# Instalar ferramentas essenciais  
+sudo apt install git curl wget unzip gnome-tweaks dconf-editor  
+sudo apt install cairo-dock lm-sensors xfce4-sensors-plugin compton  
+```  
 
-## 3️⃣ Fontes Estilo DeadSec
+Cairo-Dock será nossa escolha para este projeto, pois oferece maior flexibilidade para recriar a estética de vigilância do Watch Dogs 1:  
 
-```bash
-# Baixar fontes estilo hacker
-mkdir -p ~/fonts-temp
-cd ~/fonts-temp
-
-# Fonte principal para interface - similar à usada pelo DeadSec
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
-unzip Hack.zip -d ~/.fonts/
-
-# Fonte para terminal
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip
-unzip FiraCode.zip -d ~/.fonts/
-
-# Fonte para textos estilizados do DeadSec
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip
-unzip SourceCodePro.zip -d ~/.fonts/
-
-# Atualizar cache de fontes
-fc-cache -fv
-cd && rm -rf ~/fonts-temp
-```
-
-### Configurar Fontes no Sistema
-
-```bash
-# Configurar fontes para o sistema
-gsettings set org.gnome.desktop.interface font-name 'Hack Nerd Font 10'
-gsettings set org.gnome.desktop.interface document-font-name 'Hack Nerd Font 10'
-gsettings set org.gnome.desktop.interface monospace-font-name 'FiraCode Nerd Font Mono 10'
-gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Hack Nerd Font Bold 10'
-```
-
-## 4️⃣ Dock e Barra de Tarefas Estilo Hacker
-
-### Configurar Plank Dock
-
-```bash
-# Instalar tema neon para o Plank
-mkdir -p ~/.local/share/plank/themes/
-git clone https://github.com/dikiaap/frost-plank-theme.git
-cd frost-plank-theme
-cp -r Frost-Plank-Theme/ ~/.local/share/plank/themes/
-cd .. && rm -rf frost-plank-theme
-
-# Configurar Plank
-dconf write /net/launchpad/plank/docks/dock1/theme "'Frost-Plank-Theme'"
-dconf write /net/launchpad/plank/docks/dock1/zoom-enabled true
-dconf write /net/launchpad/plank/docks/dock1/zoom-percent 150
-dconf write /net/launchpad/plank/docks/dock1/icon-size 48
-dconf write /net/launchpad/plank/docks/dock1/position "'bottom'"
-```
-
-Para iniciar o Plank automaticamente:
-1. Abra "Configurações" > "Inicialização"
-2. Adicione novo aplicativo > selecione "Plank"
-
-### Personalizar Barra Superior
-
-Para Zorin OS com GNOME:
-
-```bash
-# Instalar extensões GNOME
-sudo apt install gnome-shell-extensions chrome-gnome-shell -y
-
-# Adicionar customização à barra superior 
-gsettings set org.gnome.desktop.interface show-battery-percentage true
-gsettings set org.gnome.desktop.interface clock-show-seconds true
-gsettings set org.gnome.desktop.interface clock-show-date true
-```
-
-Visite https://extensions.gnome.org e instale:
-- "User Themes"
-- "Dash to Panel" ou "Dash to Dock"
-- "Dynamic Panel Transparency"
-- "Clipboard Indicator"
-- "NetSpeed"
-
-## 5️⃣ Terminal Customizado Estilo DeadSec
-
-### Configuração do Terminal
-
-```bash
-# Instalar ZSH
-sudo apt install zsh -y
-
-# Instalar Oh My Zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Instalar PowerLevel10k (tema de terminal hacker)
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
-
-# Instalar plugins úteis
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-```
-
-Edite o arquivo ~/.zshrc:
-```bash
-nano ~/.zshrc
-```
-
-Modifique para:
-```
-ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-```
-
-Configurações do perfil do terminal:
-1. Abra o Terminal e vá para "Preferências"
-2. Crie um novo perfil "DeadSec"
-3. Configure:
-   - Fundo: Transparência 15%
-   - Cor de fundo: #121212
-   - Cor de texto: #00FF41 (verde neon)
-   - Fonte: FiraCode Nerd Font Mono 10
-
-### Efeitos ASCII para o Terminal
-
-```bash
-# Adicionar neofetch ao .zshrc
-echo "neofetch" >> ~/.zshrc
-
-# Configurar cores do Neofetch com tema DeadSec
-mkdir -p ~/.config/neofetch
-cat > ~/.config/neofetch/config.conf << EOF
-print_info() {
-    info title
-    info underline
-    info "OS" distro
-    info "Host" model
-    info "Kernel" kernel
-    info "Uptime" uptime
-    info "Packages" packages
-    info "Shell" shell
-    info "Resolution" resolution
-    info "DE" de
-    info "WM" wm
-    info "WM Theme" wm_theme
-    info "Theme" theme
-    info "Icons" icons
-    info "Terminal" term
-    info "Terminal Font" term_font
-    info "CPU" cpu
-    info "GPU" gpu
-    info "Memory" memory
-    info "Disk" disk
-    info "Battery" battery
-    info "Font" font
-    info "Song" song
-    info cols
-}
-colors=(6 8 5 4 8 6)
-bold="on"
-underline_enabled="on"
-underline_char="━"
-separator="→"
-block_range=(0 15)
-color_blocks="on"
-block_width=3
-block_height=1
-ascii_distro="auto"
-ascii_colors=(27 39 45 63 93 207)
-EOF
-```
-
-## 6️⃣ Papéis de Parede e Animações DeadSec
-
-```bash
-# Criar pasta para papéis de parede
-mkdir -p ~/Imagens/DeadSec-Wallpapers
-
-# Baixar papéis de parede DeadSec
-wget -O ~/Imagens/DeadSec-Wallpapers/deadsec1.jpg https://wallpaperaccess.com/full/1267663.jpg
-wget -O ~/Imagens/DeadSec-Wallpapers/deadsec2.jpg https://wallpaperaccess.com/full/1267667.jpg
-wget -O ~/Imagens/DeadSec-Wallpapers/deadsec3.jpg https://wallpaperaccess.com/full/1925392.jpg
-wget -O ~/Imagens/DeadSec-Wallpapers/deadsec4.png https://wallpapercave.com/wp/wp6093473.png
-
-# Configurar papel de parede
-gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/Imagens/DeadSec-Wallpapers/deadsec1.jpg"
-```
-
-### Configuração do Conky
-
-```bash
-# Criar configuração do Conky estilo hacker
-mkdir -p ~/.config/conky
-cat > ~/.config/conky/deadsec.conf << EOF
-conky.config = {
-    alignment = 'top_right',
-    background = true,
-    border_width = 1,
-    cpu_avg_samples = 2,
-    default_color = '00FF41',
-    default_outline_color = '4D148C',
-    default_shade_color = '4D148C',
-    double_buffer = true,
-    draw_borders = false,
-    draw_graph_borders = true,
-    draw_outline = false,
-    draw_shades = false,
-    extra_newline = false,
-    font = 'Hack Nerd Font:size=8',
-    gap_x = 25,
-    gap_y = 15,
-    minimum_height = 5,
-    minimum_width = 5,
-    net_avg_samples = 2,
-    no_buffers = true,
-    out_to_console = false,
-    out_to_ncurses = false,
-    out_to_stderr = false,
-    out_to_x = true,
-    own_window = true,
-    own_window_class = 'Conky',
-    own_window_transparent = false,
-    own_window_type = 'desktop',
-    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-    own_window_argb_visual = true,
-    own_window_argb_value = 100,
-    own_window_colour = '000000',
-    show_graph_range = false,
-    show_graph_scale = false,
-    stippled_borders = 0,
-    update_interval = 1.0,
-    uppercase = false,
-    use_spacer = 'none',
-    use_xft = true,
-};
-
-conky.text = [[
-${alignc}${font Hack Nerd Font:size=20}DeadSec${font}
-${alignc}${font Hack Nerd Font:size=10}SISTEMA HACKEADO${font}
-${voffset 10}
-${font Hack Nerd Font:bold:size=8}SISTEMA ${hr 2}
-${font}${voffset 5}Hostname: ${alignr}${nodename}
-Kernel: ${alignr}${kernel}
-Uptime: ${alignr}${uptime}
-Temperatura CPU: ${alignr}${acpitemp}°C
-
-${font Hack Nerd Font:bold:size=8}PERFORMANCE ${hr 2}
-${font}${voffset 5}CPU Usage: ${alignr}${cpu}%
-${cpubar 4}
-RAM Usage: ${alignr}$mem/$memmax
-${membar 4}
-Swap Usage: ${alignr}$swap/$swapmax
-${swapbar 4}
-
-${font Hack Nerd Font:bold:size=8}ARMAZENAMENTO ${hr 2}
-${font}${voffset 5}/ ${alignr}${fs_used /}/${fs_size /}
-${fs_bar 4 /}
-IO Read: ${alignr}${diskio_read}
-IO Write: ${alignr}${diskio_write}
-
-${font Hack Nerd Font:bold:size=8}REDE ${hr 2}
-${font}${voffset 5}IP Local: ${alignr}${addr wlp3s0}
-Download: ${alignr}${downspeed wlp3s0}
-${downspeedgraph wlp3s0 20,240 4D148C 00FF41}
-Upload: ${alignr}${upspeed wlp3s0}
-${upspeedgraph wlp3s0 20,240 4D148C 00FF41}
-Total Down/Up: ${alignr}${totaldown wlp3s0}/${totalup wlp3s0}
-
-${font Hack Nerd Font:bold:size=8}PROCESSOS TOP ${hr 2}
-${font}${voffset 5}${top name 1}${alignr}${top cpu 1}%
-${top name 2}${alignr}${top cpu 2}%
-${top name 3}${alignr}${top cpu 3}%
-${top name 4}${alignr}${top cpu 4}%
-${top name 5}${alignr}${top cpu 5}%
-
-${font Hack Nerd Font:bold:size=8}MEMÓRIA TOP ${hr 2}
-${font}${voffset 5}${top_mem name 1}${alignr}${top_mem mem 1}%
-${top_mem name 2}${alignr}${top_mem mem 2}%
-${top_mem name 3}${alignr}${top_mem mem 3}%
-${top_mem name 4}${alignr}${top_mem mem 4}%
-${top_mem name 5}${alignr}${top_mem mem 5}%
-
-${font Hack Nerd Font:bold:size=8}MENSAGEM ${hr 2}
-${font}${voffset 5}${alignc}${exec date +"%d/%m/%Y %H:%M:%S"}
-${alignc}DedSec está observando. Nós não perdoamos.
-${alignc}Nós não esquecemos. Nós somos legião.
-]];
-EOF
-
-# Criar arquivo de inicialização do Conky
-mkdir -p ~/.config/autostart
-cat > ~/.config/autostart/conky.desktop << EOF
-[Desktop Entry]
-Type=Application
-Name=Conky
-Exec=conky -c ~/.config/conky/deadsec.conf
-StartupNotify=false
-Terminal=false
-Icon=conky
-Comment=Monitor do Sistema DeadSec
-Categories=System;
-EOF
-```
-
-## 7️⃣ Efeitos visuais cintilantes
-
-### Animação de Tela
-
-```bash
-# Instalar cmatrix para efeito Matrix
-sudo apt install cmatrix -y
-
-# Criar script para abrir terminal com efeito Matrix
-cat > ~/matrix-screensaver.sh << EOF
-#!/bin/bash
-gnome-terminal -- bash -c "cmatrix -a -b -C green; exec bash"
-EOF
-
-chmod +x ~/matrix-screensaver.sh
-```
-
-### Screensaver Personalizado
-
-```bash
-# Instalar xscreensaver
-sudo apt install xscreensaver xscreensaver-gl-extra xscreensaver-data-extra -y
-
-# Configuração do XScreenSaver
-cat > ~/.xscreensaver << EOF
-programs:                                                                 \\
-                maze -root                                        \\n\\
-                deco -root                                        \\n\\
-                cynosure -root                                    \\n\\
-                interference -root                                \\n\\
-EOF
-```
-
-## 8️⃣ Extensões e Ferramentas Adicionais
-
-### Rofi Menu (estilo hacker)
-
-```bash
-# Instalar Rofi
-sudo apt install rofi -y
-
-# Configurar Rofi com tema neon
-mkdir -p ~/.config/rofi
-cat > ~/.config/rofi/config.rasi << EOF
-configuration {
-    modi: "window,run,ssh,drun";
-    font: "Hack Nerd Font 10";
-    show-icons: true;
-    terminal: "gnome-terminal";
-    ssh-client: "ssh";
-    ssh-command: "{terminal} -e {ssh-client} {host}";
-    run-command: "{cmd}";
-    run-shell-command: "{terminal} -e {cmd}";
-    icon-theme: "Papirus-Adapta-Nokto";
-    drun-match-fields: "name,generic,exec,categories";
-    drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
-}
-
-* {
-    background-color: #000000;
-    border-color: #00FF41;
-    text-color: #00FF41;
-    spacing: 0;
-    width: 700px;
-    height: 400px;
-}
-
-inputbar {
-    border: 2px;
-    border-color: #00FF41;
-    padding: 1px;
-    children: [prompt, textbox-prompt-colon, entry, case-indicator];
-}
-
-prompt {
-    text-color: #4D148C;
-}
-
-textbox-prompt-colon {
-    expand: false;
-    str: ":";
-    text-color: #00FF41;
-}
-
-entry {
-    text-color: #00FF41;
-}
-
-listview {
-    border: 0px 0px 0px;
-    padding: 6px 0px 0px;
-    spacing: 2px;
-    fixed-height: 0;
-}
-
-element {
-    border: 0;
-    padding: 4px;
-}
-
-element selected {
-    background-color: #4D148C;
-}
-
-element-icon {
-    size: 18px;
-    margin: 0px 4px 0px 0px;
-}
-EOF
-```
-
-### Atalhos de Teclado
-
-Configure atalhos personalizados:
-1. Vá para "Configurações" > "Dispositivos" > "Teclado"
-2. Adicione atalho personalizado para rofi:
-   - Nome: "DeadSec Menu"
-   - Comando: `rofi -show drun`
-   - Atalho: `Super+D`
-3. Adicione atalho para efeito Matrix:
-   - Nome: "Matrix Effect"
-   - Comando: `~/matrix-screensaver.sh`
-   - Atalho: `Ctrl+Alt+M`
-
-## 9️⃣ Toques Finais
-
-### Script de Inicialização DeadSec
-
-```bash
-# Criar script de boas-vindas DeadSec
-cat > ~/.deadsec-welcome.sh << EOF
-#!/bin/bash
-echo -e "\e[32m"
-echo "██████╗ ███████╗ █████╗ ██████╗ ███████╗███████╗ ██████╗"
-echo "██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝"
-echo "██║  ██║█████╗  ███████║██║  ██║███████╗█████╗  ██║     "
-echo "██║  ██║██╔══╝  ██╔══██║██║  ██║╚════██║██╔══╝  ██║     "
-echo "██████╔╝███████╗██║  ██║██████╔╝███████║███████╗╚██████╗"
-echo "╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝ ╚═════╝"
-echo -e "\e[0m"
-echo -e "\e[35mSistema carregado. Nós não perdoamos. Nós não esquecemos.\e[0m"
-echo ""
-EOF
-
-chmod +x ~/.deadsec-welcome.sh
-
-# Adicionar ao .zshrc
-echo "~/.deadsec-welcome.sh" >> ~/.zshrc
-```
-
-### Mensagem de Login DeadSec
-
-```bash
-# Mensagem pré-login
-sudo bash -c 'cat > /etc/issue << EOF
-\e[32m
-██████╗ ███████╗ █████╗ ██████╗ ███████╗███████╗ ██████╗
-██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝
-██║  ██║█████╗  ███████║██║  ██║███████╗█████╗  ██║     
-██║  ██║██╔══╝  ██╔══██║██║  ██║╚════██║██╔══╝  ██║     
-██████╔╝███████╗██║  ██║██████╔╝███████║███████╗╚██████╗
-╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚══════╝ ╚═════╝
-\e[35m
-Hackeando o sistema... Carregando ambiente DeadSec...
-\e[0m
-
-EOF'
-```
-
-## 🔟 Configuração do Ambiente DeadSec Completo
-
-### Aplicar Todas as Mudanças
-
-```bash
-# Aplicar alterações sem reiniciar
-source ~/.zshrc
-killall -SIGUSR1 conky
-plank &
-
-# Iniciar Conky
-conky -c ~/.config/conky/deadsec.conf &
-```
-
-## 📋 Verificação Final
-
-Para completar a transformação:
-
-1. **Tela de Login**:
-   - Vá para "Configurações" > "Aparência" > "Tela de Login"
-   - Aplique o tema escuro e defina um wallpaper DeadSec
-
-2. **Som**:
-   - Defina efeitos sonoros similares aos do jogo (beeps e notificações digitais)
-
-3. **Screensaver**:
-   - Configure o XScreenSaver para iniciar automaticamente após alguns minutos
-
-4. **Ícones de Aplicativos**:
-   - Substitua os ícones dos aplicativos principais por versões neon-cyberpunk
-
-## 🎮 Resultado Final
-
-Seu Zorin OS agora tem a aparência completa do DeadSec de Watch Dogs 2, com:
-- Paleta de cores cyberpunk (preto, verde neon #00FF41, roxo digital #4D148C)
-- Interface hacker minimalista
-- Fontes monospace estilizadas
-- Terminal transparente com informações em tempo real
-- Monitores de sistema Conky ao estilo hacker
-- Animações e efeitos visuais inspirados no universo DeadSec
-
-Divirta-se com seu novo sistema operacional estilo hacker!
+> "Cairo-Dock is a desktop interface that takes the shape of docks, desklets, panel, etc. It is designed to be light, fast and customizable, and is desktop-agnostic."  
+
+### Criação de Estrutura de Diretórios  
+
+```bash  
+# Criar diretórios para temas e ícones  
+mkdir -p ~/.themes  
+mkdir -p ~/.icons  
+mkdir -p ~/.local/share/fonts  
+mkdir -p ~/.config/conky  
+mkdir -p ~/.config/cairo-dock/themes/ctOS  
+mkdir -p ~/.ctOS/{scripts,assets,wallpapers}  
+```  
+
+A estrutura `.ctOS` nos permitirá organizar todos os elementos personalizados relacionados ao tema de vigilância que estamos criando.  
+
+### Backup das Configurações Atuais  
+
+Antes de fazer alterações significativas, é sempre recomendável criar backups:  
+
+```bash  
+# Backup das configurações do GNOME  
+dconf dump /org/gnome/ > ~/gnome-settings-backup.dconf  
+
+# Backup de arquivos de configuração importantes  
+cp ~/.zshrc ~/.zshrc.bak 2>/dev/null || cp ~/.bashrc ~/.bashrc.bak  
+```  
+
+Esta etapa de preparação garante que você tenha todas as ferramentas necessárias e um caminho seguro para reverter as alterações caso algo não saia como esperado.  
+
+## 3. Paleta de Cores e Tema Visual  
+
+A estética de Watch Dogs 1 é fortemente definida por sua paleta de cores característica, que combina tons escuros com acentos em azul eletrônico.  
+
+### Paleta de Cores Oficial Watch Dogs 1  
+
+| Cor | Código HEX | Uso Recomendado |  
+|-----|------------|-----------------|  
+| Preto Profundo | #0a0a0a | Fundos e áreas principais |  
+| Azul Eletrônico | #00a8e1 | Acentos principais e texto destacado |  
+| Cinza Metálico | #3a3a3a | Elementos secundários e bordas |  
+| Cinza Claro | #d3d3d3 | Texto e detalhes sutis |  
+
+Esta paleta de cores reflete o ambiente urbano noturno de Chicago e a interface do sistema ctOS do jogo.  
+
+### Instalação de Temas GTK Cyberpunk Azul  
+
+Vamos instalar temas que se alinham com a estética de Watch Dogs 1:  
+
+```bash  
+# Baixar e instalar o tema Cyberpunk-Blue  
+cd /tmp  
+git clone https://github.com/Roboron3042/Cyberpunk-Theme.git  
+cd Cyberpunk-Theme  
+cp -r themes/Cyberpunk-Blue ~/.themes/  
+```  
+
+Alternativamente, podemos usar o tema Nordic, que possui uma variante escura com acentos em azul:  
+
+```bash  
+# Baixar e instalar o tema Nordic  
+cd /tmp  
+wget https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic.tar.xz  
+tar -xf Nordic.tar.xz -C ~/.themes/  
+```  
+
+> "Transform your GNOME desktop into a futuristic cyberpunk haven with our AI-designed Cyberpunk Neon GTK3/4 Theme."  
+
+Para Watch Dogs 1, vamos modificar as cores para azul em vez de verde neon.  
+
+### Instalação de Ícones Monochrome Blue  
+
+```bash  
+# Baixar e instalar o conjunto de ícones Papirus  
+sudo apt install papirus-icon-theme  
+
+# Instalar o tema de ícones Papirus-Dark  
+mkdir -p ~/.icons/Papirus-Blue  
+cp -r /usr/share/icons/Papirus-Dark/* ~/.icons/Papirus-Blue/  
+```  
+
+Agora vamos modificar os ícones para usar tons de azul:  
+
+```bash  
+# Instalar o script de colorização do Papirus  
+cd /tmp  
+wget https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/master/install.sh  
+chmod +x install.sh  
+./install.sh  
+
+# Mudar a cor dos ícones para azul  
+papirus-folders -C blue --theme Papirus-Blue  
+```  
+
+### Aplicação do Tema e Ícones  
+
+Após a instalação, vamos aplicar o tema e os ícones usando o dconf-editor:  
+
+```bash  
+# Aplicar tema GTK  
+gsettings set org.gnome.desktop.interface gtk-theme 'Nordic'  
+
+# Aplicar tema de shell (se estiver usando GNOME Shell)  
+gsettings set org.gnome.shell.extensions.user-theme name 'Nordic'  
+
+# Aplicar ícones  
+gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Blue'  
+```  
+
+Alternativamente, você pode usar o GNOME Tweaks para aplicar essas configurações através de uma interface gráfica:  
+
+```bash  
+gnome-tweaks  
+```  
+
+Na interface do GNOME Tweaks, navegue até a seção "Aparência" e selecione os temas e ícones instalados.  
+
+## 4. Instalação e Configuração de Fontes  
+
+A tipografia é um elemento crucial para capturar a estética de Watch Dogs 1. Vamos instalar e configurar as fontes apropriadas.  
+
+### Instalação da Fonte Share Tech (Estilo Watch Dogs 1)  
+
+```bash  
+# Baixar a fonte Share Tech  
+cd /tmp  
+wget https://fonts.google.com/download?family=Share%20Tech -O share-tech.zip  
+unzip share-tech.zip -d share-tech  
+
+# Instalar a fonte no sistema  
+cp share-tech/*.ttf ~/.local/share/fonts/  
+
+# Atualizar o cache de fontes  
+fc-cache -f -v  
+```  
+
+> "Share Tech - Google Fonts. Google Fonts makes it easy to bring personality and performance to your websites and products."  
+
+Esta fonte tem características técnicas e quadradas que se alinham perfeitamente com a estética de Watch Dogs 1.  
+
+### Instalação de Fontes Monospace para Terminal  
+
+```bash  
+# Baixar e instalar Share Tech Mono  
+cd /tmp  
+wget https://fonts.google.com/download?family=Share%20Tech%20Mono -O share-tech-mono.zip  
+unzip share-tech-mono.zip -d share-tech-mono  
+cp share-tech-mono/*.ttf ~/.local/share/fonts/  
+
+# Baixar e instalar Fira Code (para código)  
+sudo apt install fonts-firacode  
+
+# Atualizar o cache de fontes  
+fc-cache -f -v  
+```  
+
+> "Our robust catalog of open-source fonts and icons makes it easy to integrate expressive type and icons seamlessly — no matter where you are in the world."  
+
+### Configuração das Fontes no Sistema  
+
+Vamos configurar o sistema para usar nossas novas fontes:  
+
+```bash  
+# Configurar fonte de interface  
+gsettings set org.gnome.desktop.interface font-name 'Share Tech 11'  
+gsettings set org.gnome.desktop.interface document-font-name 'Share Tech 11'  
+gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Share Tech Bold 11'  
+
+# Configurar fonte monospace (para terminal e editores de código)  
+gsettings set org.gnome.desktop.interface monospace-font-name 'Share Tech Mono 12'  
+```  
+
+Estas configurações aplicam a fonte Share Tech para a interface geral do sistema e a Share Tech Mono para o terminal e editores de código, criando uma experiência visual coesa que remete ao estilo técnico e quadrado das interfaces de Watch Dogs 1.  
+
+## 5. Personalização do Terminal  
+
+O terminal é um componente central da estética hacker/vigilância do Watch Dogs 1. Vamos transformá-lo completamente.  
+
+### Instalação do ZSH e Oh My Zsh  
+
+```bash  
+# Instalar ZSH  
+sudo apt install zsh  
+
+# Definir ZSH como shell padrão  
+chsh -s $(which zsh)  
+
+# Instalar Oh My Zsh  
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"  
+```  
+
+> "This post will focus mostly on the visual setup for iTerm2, and also introduce some ZSH magical plugins I now can't live without."  
+
+### Configuração do Tema Personalizado para ZSH  
+
+Em vez de usar o Powerlevel10k como no guia anterior, vamos criar um tema personalizado que se assemelha mais às interfaces de vigilância de Watch Dogs 1:  
+
+```bash  
+# Criar um tema personalizado para ZSH  
+mkdir -p ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes  
+cat > ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/ctOS.zsh-theme << 'EOF'  
+# ctOS Theme for Oh My Zsh  
+# Inspirado no sistema de vigilância de Watch Dogs 1  
+
+# Cores  
+BLUE="%F{39}"  
+LIGHT_BLUE="%F{81}"  
+DARK_BLUE="%F{27}"  
+WHITE="%F{255}"  
+GRAY="%F{240}"  
+RED="%F{196}"  
+GREEN="%F{46}"  
+
+# Status do último comando (sucesso/falha)  
+local cmd_status="%(?:${GREEN}▶:${RED}▶)"  
+
+# Prompt principal  
+PROMPT='${BLUE}┌─[${WHITE}%n@ctOS${BLUE}]─[${WHITE}%~${BLUE}]  
+${BLUE}└─${cmd_status} ${WHITE}'  
+
+# Prompt direito (hora e data)  
+RPROMPT='${GRAY}[${LIGHT_BLUE}%D{%H:%M:%S}${GRAY}]${reset_color}'  
+
+# Git status  
+ZSH_THEME_GIT_PROMPT_PREFIX="${BLUE}[${WHITE}"  
+ZSH_THEME_GIT_PROMPT_SUFFIX="${BLUE}]${reset_color}"  
+ZSH_THEME_GIT_PROMPT_DIRTY="${RED}*"  
+ZSH_THEME_GIT_PROMPT_CLEAN="${GREEN}✓"  
+EOF  
+```  
+
+### Configuração do .zshrc  
+
+Edite o arquivo `~/.zshrc` para incluir as seguintes configurações:  
+
+```bash  
+# Abrir o arquivo .zshrc  
+nano ~/.zshrc  
+```  
+
+Adicione ou modifique as seguintes linhas:  
+
+```bash  
+# Tema ctOS  
+ZSH_THEME="ctOS"  
+
+# Plugins úteis  
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)  
+
+# Aliases estilo ctOS  
+alias ls="ls --color=auto"  
+alias ll="ls -la --color=auto"  
+alias matrix="cmatrix -abs -C blue"  
+alias scan="nmap -sP 192.168.1.0/24"  
+alias monitor="htop"  
+alias weather="curl wttr.in/?0"  
+alias ctOS="figlet -f slant 'ctOS' | lolcat -p 1.5 -F 0.3"  
+```  
+
+> "Auto-suggestions: A wonderful plugin which uses your shell history to suggest commands back at you as you type."  
+
+> "Syntax Highlighting: A plugin which highlights certain syntax's red as you type. When the command is recognized it changes to green. Really handy for personal aliases and functions as it works on those too."  
+
+### Instalação de Plugins ZSH  
+
+```bash  
+# Instalar plugins de autosugestão e syntax highlighting  
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions  
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting  
+
+# Instalar ferramentas adicionais  
+sudo apt install figlet lolcat cmatrix htop nmap  
+```  
+
+### Adicionando o Logo ctOS ao Terminal  
+
+Vamos adicionar o logo ctOS ao nosso terminal:  
+
+```bash  
+# Criar um script para o logo ctOS  
+cat > ~/.ctOS_logo.sh << 'EOF'  
+#!/bin/bash  
+echo '  
+   _____ _    ___  ____  
+  / ____| |  / _ \/ ___|   
+ | |    | |_| | | \___ \   
+ | |    | __| | | |___) |  
+ | |____| |_| |_| |____/   
+  \_____|\__|\___/      
+'  
+EOF  
+
+# Tornar o script executável  
+chmod +x ~/.ctOS_logo.sh  
+
+# Adicionar ao .zshrc para exibir no início de cada sessão  
+echo "~/.ctOS_logo.sh" >> ~/.zshrc  
+```  
+
+### Instalação de Utilitários para Terminal  
+
+```bash  
+# Instalar bat (alternativa moderna ao cat)  
+sudo apt install bat  
+
+# Instalar lsd (alternativa moderna ao ls)  
+sudo apt install lsd  
+
+# Instalar neofetch para exibir informações do sistema  
+sudo apt install neofetch  
+```  
+
+> "You can use bat instead of cat to add syntax highlighting to output."  
+
+### Configuração de Cores do Terminal  
+
+Vamos configurar as cores do terminal para combinar com a estética Watch Dogs 1:  
+
+```bash  
+# Criar um perfil de cores para o terminal  
+dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-color "'rgb(10,10,10)'"  
+dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/foreground-color "'rgb(0,168,225)'"  
+dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-theme-colors "false"  
+dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/use-transparent-background "true"  
+dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/background-transparency-percent "10"  
+dconf write /org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9/font "'Share Tech Mono 12'"  
+```  
+
+> "You can set all of your color schemes in here. You can either Google some prebuilt iTerm2 color schemes, use the in-built ones, or design your own like I did."  
+
+## 6. Configuração do Dock e Barra de Tarefas  
+
+Para completar a aparência Watch Dogs 1, vamos personalizar o dock e a barra de tarefas.  
+
+### Instalação e Configuração do Cairo-Dock  
+
+Cairo-Dock oferece mais opções de personalização que se alinham com a estética de vigilância de Watch Dogs 1:  
+
+```bash  
+# Instalar Cairo-Dock  
+sudo apt install cairo-dock cairo-dock-plug-ins  
+```  
+
+> "Cairo-Dock is a desktop interface that takes the shape of docks, desklets, panel, etc. It is designed to be light, fast and customizable, and is desktop-agnostic."  
+
+### Configuração do Cairo-Dock Estilo ctOS  
+
+Vamos criar uma configuração personalizada para o Cairo-Dock:  
+
+```bash  
+# Criar diretório para o tema ctOS  
+mkdir -p ~/.config/cairo-dock/themes/ctOS  
+
+# Baixar e extrair o tema base  
+cd /tmp  
+wget https://raw.githubusercontent.com/cairo-dock/cairo-dock-core/master/data/themes/Default/Default.tar.gz  
+tar -xzf Default.tar.gz -C ~/.config/cairo-dock/themes/ctOS/  
+
+# Configurar o tema ctOS  
+cat > ~/.config/cairo-dock/current_theme/cairo-dock.conf << 'EOF'  
+[Desktop Entry]  
+#!en;  
+Name=ctOS Surveillance  
+Comment=A theme inspired by Watch Dogs 1 ctOS system  
+
+[Theme]  
+#F[Theme]  
+frame_theme=  
+
+#S+ Main dock theme:  
+theme=ctOS  
+
+[Position]  
+#F[Position on the screen;gtk-fullscreen]  
+frame_position=  
+
+#b Lock the dock position?  
+#{If locked, the dock cannot be moved by simply dragging it with the mouse.}  
+locked=true  
+
+#e[0.;1.] Horizontal position:  
+#{0 is the left, 1 is the right.}  
+x position=0.5  
+
+#e[0.;1.] Vertical position:  
+#{0 is the bottom, 1 is the top.}  
+y position=0  
+
+#F[Visibility of the dock;gtk-find]  
+frame_visi=  
+
+#Y[Always on top;0;0;Reserve space for the dock;0;0;Keep the dock below;0;0;Hide the dock when it overlaps the current window;1;1;Hide the dock whenever it overlaps any window;1;1;Keep the dock hidden;1;1;Pop-up on shortcut;2;2] Visibility:  
+#{Modes are sorted from the most intrusive to the less intrusive.  
+#When the dock is hidden or below windows, it will pop up when the mouse reaches the screen's border it is placed on.  
+#When the dock pops up on shortcut, it will appear at the mouse's position.}  
+visibility=4  
+
+#k Keyboard shortcut:  
+#{This shortcut will be used to pop-up the dock when it's hidden, or to unhide it temporarily when it is auto-hidden.}  
+keyboard shortcut=F1  
+
+#i[0;2000] Delay before the dock unhides itself:  
+#{in ms. 0 means no delay.}  
+unhide delay=0  
+
+#i[0;2000] Delay before the dock hides itself:  
+#{in ms. 0 means no delay.}  
+hide delay=500  
+
+#F[Appearance;gtk-dialog-info]  
+frame_app=  
+
+#e[0;1] Transparency of the dock:  
+#{0 is invisible, 1 is opaque. This can be used to set a fake transparency to the dock.}  
+transparency=0.7  
+
+#e[0;1] Transparency of the desklets when they are on the same screen as the dock:  
+#{0 is invisible, 1 is opaque.}  
+desklets transparency=1  
+
+#b+ Should the dock be kept on top of other windows?  
+#{This is useful if your dock is partially transparent.}  
+keep above=true  
+
+#b Should the dock be kept below other windows?  
+#{This is useful if you want to have desktop icons on top of the dock.}  
+keep below=false  
+
+#b Should the dock reserve space for itself?  
+#{This will prevent windows from taking the space used by the dock.}  
+reserve space=false  
+
+#i[0;50] Extra space to be reserved:  
+#{in pixels.}  
+extra space=0  
+
+#i[0;999] Only reserve space if dock's size is greater than:  
+#{in pixels. 0 means always reserve space.}  
+max authorized width=0  
+
+#F  
+frame_extra=  
+
+#l[None;Automatic transparency;Follow mouse;Image;Active window] Background style:  
+#{None: no background, the dock is directly on the wallpaper.  
+#Automatic transparency: the background is transparent on the wallpaper, but opaque on windows.  
+#Follow mouse: the background is transparent on the wallpaper, and become more and more opaque as the mouse approaches the dock.  
+#Image: the background is an image.  
+#Active window: the background is transparent on the wallpaper, but opaque when a window is maximized.}  
+background style=1  
+
+#o+ Image to use as a background:  
+#{Any format that Cairo can read, preferably with an alpha channel.}  
+background image=  
+
+#b+ Should the background image be repeated?  
+#{If the image is smaller than the dock, it will be repeated as a pattern.}  
+repeat image=false  
+
+#e[0;1] Background transparency desired:  
+#{between 0 and 1, where 0 is invisible, and 1 is opaque.}  
+background transparency=0.5  
+
+#i[0;500] Maximum distance from the dock:  
+#{in pixels. The transparency will decrease linearly from the dock to this distance.}  
+max distance=300  
+
+#F[Background color;gtk-select-color]  
+frame_col=  
+
+#c+3 1st color of gradation:  
+#{It's the top color for a vertical dock, or the left color for an horizontal dock.}  
+stripes color start=0.0;0.0;0.0;0.0  
+
+#c+3 2nd color of gradation:  
+#{It's the bottom color for a vertical dock, or the right color for an horizontal dock.}  
+stripes color stop=0.0;0.0;0.0;0.0  
+
+#b+ Link the colors with the themes?  
+#{If you check this, the colors will be set according to your current theme.}  
+colors linked with theme=true  
+
+#F[Reflections]  
+frame_refl=  
+
+#e[0;1] Reflection visibility:  
+#{between 0 and 1, where 0 is invisible, and 1 is fully visible.}  
+reflect dock=0  
+
+#e[0;1] Amount of light:  
+#{between 0 and 1, where 0 is dark, and 1 is very bright.}  
+light=0.5  
+
+#i[0;50] Height of the reflection:  
+#{in pixels.}  
+reflect height=0  
+
+#F[Taskbar]  
+frame_task=  
+
+#Y[Lock icons;1;1;Show windows list;1;1;Minimize windows with their icon;1;1;Present windows with their icon;1;1;Present all windows of the same application;1;1;Present class windows with their icon;1;1;Present all windows;1;1] Action on left click on the taskbar:  
+left click=0  
+
+#Y[None;0;0;Close;0;0;Minimize;0;0;Restore;0;0;Maximize;0;0;Lower;0;0;Skip from taskbar;0;0;Set on top;0;0;Kill;0;0] Action on middle click on the taskbar:  
+middle click=2  
+
+#Y[None;0;0;Close;0;0;Minimize;0;0;Restore;0;0;Maximize;0;0;Lower;0;0;Skip from taskbar;0;0;Set on top;0;0;Kill;0;0] Action on right click on the taskbar:  
+right click=0  
+
+#b Separate the different tasks?  
+#{This will draw a separator between tasks of different applications.}  
+separate=true  
+
+#b Group the same applications in a sub-dock?  
+group=false  
+
+#i[1;20] Maximum number of caracters in application name:  
+#{This defines the maximum size of the taskbar items.}  
+max name length=10  
+
+#F[Animations;gtk-dialog-info]  
+frame_anim=  
+
+#I[0;4000] Animation duration:  
+#{in ms.}  
+animation=300  
+
+#a+ Animation type:  
+animation type=wobbly  
+
+#b+ Animate sub-docks when they appear?  
+animate subdocks=true  
+
+#I[0;1000] Unfold duration:  
+#{in ms.}  
+unfold duration=300  
+
+#a+ Unfold animation type:  
+unfold acceleration=wobbly  
+
+#e[0;2] Number of rotations:  
+#{Number of complete rotations the icon will make during the bounce.}  
+nb rotations=0.5  
+
+#e[0;5] Amplitude of the wave:  
+#{in times the icon's size. The wave will be used when the icon reaches its maximum height during the bounce.}  
+wave amplitude=0.3  
+
+#e[0;1] Depth of the wave:  
+#{The wave will be used when the icon reaches its maximum height during the bounce.}  
+wave depth=0.5  
+
+#F[Labels;gtk-bold]  
+frame_label=  
+
+#b+ Display labels on icons?  
+#{Display the name of the application on the icon.}  
+display labels=false  
+
+#B Show labels for all icons?  
+#{If not set, only applets that request it will have a label.}  
+labels on all icons=false  
+
+#b+ Display the task's name on its icon?  
+#{By default, the tooltip only shows up when hovering over the icon.}  
+display task name=false  
+
+#b+ Display the task's number on its icon?  
+#{Display the application number on the icon, which is very useful when using keyboard shortcuts.}  
+display task number=false  
+
+#B Draw labels on the background?  
+#{If checked, the task's name will be drawn on the background rather than directly on the icon.}  
+display labels on background=false  
+
+#c+3 Background color for the labels:  
+#{Set transparency to 0 to use the default background color.}  
+label background color=0.0;0.0;0.0;0.85  
+
+#b+ Use a custom font for the labels?  
+custom font=false  
+
+#P+ Font used for the labels:  
+#{Leave empty to use the default system font.}  
+font=Sans 10  
+
+#F[Icons;gtk-dialog-info]  
+frame_icons=  
+
+#q[Automatic;0;0;Custom;1;1] Icons size:  
+#{Choose whether you want to use a custom size for the icons or let the dock adjust their size.}  
+use custom size=0  
+
+#I[10;128] Custom icon size:  
+#{in pixels.}  
+icon size=48  
+
+#F[Zoom;gtk-find]  
+frame_zoom=  
+
+#e[1;5] Maximum zoom of the icons:  
+#{set to 1 if you don't want the icons to zoom when the mouse hovers over them.}  
+zoom max=1  
+
+#i[0;999] Zoom region:  
+#{in pixels. This is the distance from the dock within which the zoom is activated.}  
+sinusoid width=150  
+
+#i[0;50] Space reserved for free rotation:  
+#{in pixels.}  
+cone=0  
+
+#e[0;1] Curvature of the cone:  
+#{0 means the cone is a triangle, 1 means it's a half-circle.}  
+curvature=0  
+
+#v  
+sep_icon=  
+
+#b Zoom only on the active window?  
+#{Only the icon of the active window will be zoomed.}  
+zoom only active=false  
+
+#b+ Zoom when the dock is hidden?  
+#{The icons will be zoomed even when the dock is hidden.}  
+zoom hidden=true  
+
+#i[0;500] Zoom duration:  
+#{in ms.}  
+zoom duration=300  
+
+#a+ Zoom animation type:  
+zoom type=wobbly  
+
+#F[Style;gtk-color-picker]  
+frame_style=  
+
+#h+[/usr/share/cairo-dock/plug-ins/dock-rendering] Rendering style:  
+dock renderer=Curve  
+
+#o+ SVG file to use for the frame:  
+#{Leave empty to use the default one.}  
+frame=  
+
+#c+4 Outline colour of the frame:  
+line color=0.0;0.65882352941176472;0.89803921568627454;1.0  
+
+#c+4 Colour of the frame:  
+frame color=0.0;0.0;0.0;0.0  
+
+#i[0;30] Corner radius:  
+#{in pixels.}  
+corner radius=8  
+
+#i[1;20] Linewidth of the frame:  
+#{in pixels.}  
+line width=2  
+
+#i[0;30] Margin between the frame and the icons:  
+#{in pixels.}  
+frame margin=2  
+
+#b+ Are the hidden docks very thin?  
+#{If so, they will be more discrete, but you will need to click precisely on them to make them appear.}  
+thin hidden docks=true  
+
+#F[Views;gtk-fullscreen]  
+frame_view=  
+
+#n+ Name of the view used for the main dock:  
+main dock view=Default  
+
+#v  
+sep_view=  
+
+#b+ Should the dock be shown on all desktops?  
+#{This is useful if you want to have the dock visible on all desktops.}  
+sticky=true  
+
+#b+ Should the dock be extended to all screens?  
+#{This is useful if you have a dual-screen setup.}  
+extend=false  
+
+#F[Dialogs;gtk-dialog-info]  
+frame_dial=  
+
+#i[5;40] Size of the margin around dialog's text:  
+#{in pixels.}  
+text margin=10  
+
+#b+ Should dialogs buttons be placed vertically?  
+#{If not, they will be placed horizontally.}  
+vertical=false  
+
+#i[10;100] Size of the icon displayed next to the text:  
+#{in pixels.}  
+icon size=32  
+
+#F[Accessibility;gtk-find]  
+frame_acces=  
+
+#i[150;10000] Delay before automatic hide:  
+#{in ms. This delay is used when the dock is set to auto-hide and the mouse leaves the dock.}  
+auto-hide delay=500  
+
+#b+ Keep the dock visible when a dialog is displayed?  
+#{This is useful when an application needs your attention.}  
+auto quick hide=true  
+
+#i[0;20] How far the dock will move when a window gets maximized:  
+#{in pixels.}  
+auto-hide on maximize=0  
+
+#i[0;12] How far the dock will move when a window gets fullscreen:  
+#{in pixels.}  
+auto-hide on fullscreen=12  
+
+#F[Sub-docks' position;gtk-fullscreen]  
+frame_sub=  
+
+#e[0.1;1.5] Relative size of the sub-docks:  
+#{You can specify a ratio for the size of the sub-docks, compared to the main dock's size.}  
+relative icon size=0.8  
+
+#i[-12;12] Vertical position of the sub-docks:  
+#{in pixels.}  
+vertical offset=0  
+
+#b+ Are sub-docks placed on the right?  
+#{If checked, sub-docks will be placed on the right, otherwise they will be placed on the left.}  
+right=true  
+EOF  
+```  
+
+### Configuração de Ícones para o Cairo-Dock  
+
+Vamos adicionar ícones personalizados ao Cairo-Dock:  
+
+```bash  
+# Criar diretório para ícones personalizados  
+mkdir -p ~/.config/cairo-dock/extras/icons  
+
+# Baixar ícones personalizados (você precisará encontrar ou criar estes ícones)  
+# Exemplo:  
+wget https://example.com/ctOS-icons.tar.gz -O /tmp/ctOS-icons.tar.gz  
+tar -xzf /tmp/ctOS-icons.tar.gz -C ~/.config/cairo-dock/extras/icons/  
+```  
+
+### Configuração de Lançadores para o Cairo-Dock  
+
+Vamos adicionar lançadores personalizados ao Cairo-Dock:  
+
+```bash  
+# Criar diretório para lançadores personalizados  
+mkdir -p ~/.config/cairo-dock/current_theme/launchers  
+
+# Criar lançador para o terminal  
+cat > ~/.config/cairo-dock/current_theme/launchers/terminal.desktop << EOF  
+[Desktop Entry]  
+Type=Application  
+Name=Terminal  
+Comment=Access the command line  
+Exec=gnome-terminal  
+Icon=utilities-terminal  
+Terminal=false  
+StartupNotify=true  
+Categories=GNOME;GTK;Utility;TerminalEmulator;  
+X-Cairo-Dock-Launcher=true  
+EOF  
+
+# Criar lançador para o navegador  
+cat > ~/.config/cairo-dock/current_theme/launchers/browser.desktop << EOF  
+[Desktop Entry]  
+Type=Application  
+Name=Web Browser  
+Comment=Browse the web  
+Exec=firefox  
+Icon=firefox  
+Terminal=false  
+StartupNotify=true  
+Categories=Network;WebBrowser;  
+X-Cairo-Dock-Launcher=true  
+EOF  
+
+# Criar lançador para o gerenciador de arquivos  
+cat > ~/.config/cairo-dock/current_theme/launchers/files.desktop << EOF  
+[Desktop Entry]  
+Type=Application  
+Name=Files  
+Comment=Browse your files  
+Exec=nautilus  
+Icon=system-file-manager  
+Terminal=false  
+StartupNotify=true  
+Categories=GNOME;GTK;Utility;FileManager;  
+X-Cairo-Dock-Launcher=true  
+EOF  
+```  
+
+### Personalização da Barra Superior (GNOME Shell)  
+
+```bash  
+# Configurar a barra superior  
+gsettings set org.gnome.desktop.interface clock-show-seconds true  
+gsettings set org.gnome.desktop.interface clock-show-weekday true  
+gsettings set org.gnome.desktop.interface show-battery-percentage true  
+```  
+
+## 7. Wallpapers e Efeitos Visuais  
+
+Os wallpapers e efeitos visuais são elementos cruciais para completar a estética Watch Dogs 1.  
+
+### Wallpapers Watch Dogs 1  
+
+Vamos baixar alguns wallpapers inspirados em Watch Dogs 1:  
+
+```bash  
+# Criar diretório para wallpapers  
+mkdir -p ~/Pictures/Wallpapers/WatchDogs1  
+
+# Baixar wallpapers  
+cd ~/Pictures/Wallpapers/WatchDogs1  
+wget https://images.alphacoders.com/772/772671.jpg -O chicago_night.jpg  
+wget https://images.alphacoders.com/519/519107.jpg -O ctos_logo.jpg  
+wget https://images.alphacoders.com/519/519106.jpg -O watch_dogs_rain.jpg  
+```  
+
+> "HD wallpaper: debian, gnome, linux, ubuntu. This HD wallpaper is about debian, gnome, linux, ubuntu, Original wallpaper dimensions is 1680x1050px, file size is 350.42KB"  
+
+### Configuração de Wallpaper  
+
+```bash  
+# Definir wallpaper  
+gsettings set org.gnome.desktop.background picture-uri "file:///$HOME/Pictures/Wallpapers/WatchDogs1/chicago_night.jpg"  
+gsettings set org.gnome.desktop.background picture-uri-dark "file:///$HOME/Pictures/Wallpapers/WatchDogs1/chicago_night.jpg"  
+```  
+
+### Instalação de Compton para Efeitos Visuais  
+
+```bash  
+# Instalar Compton  
+sudo apt install compton  
+
+# Criar configuração personalizada para Compton  
+cat > ~/.config/compton.conf << 'EOF'  
+# Sombras  
+shadow = true;  
+no-dnd-shadow = true;  
+no-dock-shadow = false;  
+clear-shadow = true;  
+shadow-radius = 7;  
+shadow-offset-x = -7;  
+shadow-offset-y = -7;  
+shadow-opacity = 0.7;  
+shadow-red = 0.0;  
+shadow-green = 0.0;  
+shadow-blue = 0.0;  
+
+# Opacidade  
+menu-opacity = 0.9;  
+inactive-opacity = 0.9;  
+active-opacity = 1.0;  
+frame-opacity = 0.7;  
+inactive-opacity-override = false;  
+alpha-step = 0.06;  
+
+# Desfoque  
+blur-background = true;  
+blur-background-frame = true;  
+blur-method = "kawase";  
+blur-strength = 5;  
+
+# Desvanecimento  
+fading = true;  
+fade-delta = 4;  
+fade-in-step = 0.03;  
+fade-out-step = 0.03;  
+no-fading-openclose = false;  
+
+# Outros  
+mark-wmwin-focused = true;  
+mark-ovredir-focused = true;  
+detect-rounded-corners = true;  
+detect-client-opacity = true;  
+refresh-rate = 0;  
+vsync = "opengl-swc";  
+dbe = false;  
+paint-on-overlay = true;  
+sw-opti = false;  
+unredir-if-possible = true;  
+detect-transient = true;  
+detect-client-leader = true;  
+invert-color-include = [ ];  
+
+# GLX backend  
+backend = "glx";  
+glx-no-stencil = true;  
+glx-copy-from-front = false;  
+glx-swap-method = "undefined";  
+glx-no-rebind-pixmap = true;  
+EOF  
+
+# Adicionar Compton ao startup  
+mkdir -p ~/.config/autostart  
+cat > ~/.config/autostart/compton.desktop << EOF  
+[Desktop Entry]  
+Type=Application  
+Name=Compton  
+Exec=compton --config ~/.config/compton.conf -b  
+StartupNotify=false  
+Terminal=false  
+EOF  
+```  
+
+### Configuração de Screensaver Estilo Matrix  
+
+```bash  
+# Instalar XScreenSaver  
+sudo apt install xscreensaver xscreensaver-gl-extra  
+
+# Configurar screensaver estilo Matrix com cores azuis  
+cat > ~/.xscreensaver << EOF  
+programs:                                                                     \\
+                 glmatrix -root -mode binary -dna -speed 1.0 -density 20 -thickness 2 -delay 20000 -wireframe -no-rotate -blue \\n\\
+EOF  
+
+# Iniciar XScreenSaver no login  
+echo "xscreensaver -nosplash &" >> ~/.xprofile  
+```  
+
+## 8. Extensões GNOME Essenciais  
+
+As extensões GNOME podem adicionar funcionalidades e melhorar a aparência do seu desktop.  
+
+### Instalação do GNOME Extensions Manager  
+
+```bash  
+# Instalar o gerenciador de extensões GNOME  
+sudo apt install gnome-shell-extension-manager  
+```  
+
+### Extensões Recomendadas para Estética Watch Dogs 1  
+
+| Nome da Extensão | Descrição | Comando de Instalação |  
+|------------------|-----------|------------------------|  
+| User Themes | Permite usar temas personalizados para o GNOME Shell | `sudo apt install gnome-shell-extensions` |  
+| Blur my Shell | Adiciona efeito de desfoque às janelas | Via Extension Manager |  
+| Transparent Top Bar | Torna a barra superior transparente | Via Extension Manager |  
+| Vitals | Monitora recursos do sistema | Via Extension Manager |  
+| Net Speed Simplified | Mostra velocidade de rede na barra superior | Via Extension Manager |  
+| Caffeine | Impede que o sistema entre em suspensão | Via Extension Manager |  
+
+> "GNOME Shell extensions allow you to turn your Ubuntu desktop into a personalised workspace customised to your needs, and enhanced by new features."  
+
+> "It's safe to say that the GNOME desktop environment isn't big on customization. You can, however, tailor your GNOME experience by adding extensions."  
+
+### Ativação e Configuração das Extensões  
+
+Após a instalação, você pode ativar e configurar as extensões usando o GNOME Extensions Manager:  
+
+```bash  
+gnome-extensions-app  
+```  
+
+## 9. Ferramentas de Monitoramento Estilo Vigilância  
+
+Para completar a experiência Watch Dogs 1, vamos adicionar algumas ferramentas de monitoramento com visual de vigilância.  
+
+### Instalação do Conky  
+
+```bash  
+# Instalar Conky  
+sudo apt install conky-all  
+```  
+
+### Configuração do Conky Estilo ctOS  
+
+Crie um arquivo de configuração para o Conky:  
+
+```bash  
+# Criar arquivo de configuração do Conky  
+cat > ~/.config/conky/ctOS.conf << 'EOF'  
+conky.config = {  
+    alignment = 'top_right',  
+    background = true,  
+    border_width = 1,  
+    cpu_avg_samples = 2,  
+    default_color = '00a8e1',  
+    default_outline_color = '3a3a3a',  
+    default_shade_color = '000000',  
+    double_buffer = true,  
+    draw_borders = false,  
+    draw_graph_borders = true,  
+    draw_outline = false,  
+    draw_shades = false,  
+    extra_newline = false,  
+    font = 'Share Tech Mono:size=10',  
+    gap_x = 25,  
+    gap_y = 25,  
+    minimum_height = 5,  
+    minimum_width = 300,  
+    net_avg_samples = 2,  
+    no_buffers = true,  
+    out_to_console = false,  
+    out_to_ncurses = false,  
+    out_to_stderr = false,  
+    out_to_x = true,  
+    own_window = true,  
+    own_window_class = 'Conky',  
+    own_window_type = 'desktop',  
+    own_window_transparent = true,  
+    own_window_argb_visual = true,  
+    own_window_argb_value = 0,  
+    show_graph_range = false,  
+    show_graph_scale = false,  
+    stippled_borders = 0,  
+    update_interval = 1.0,  
+    uppercase = false,  
+    use_spacer = 'none',  
+    use_xft = true,  
+}  
+
+conky.text = [[  
+${alignc}${font Share Tech:size=16}ctOS SURVEILLANCE SYSTEM${font}  
+${alignc}${font Share Tech Mono:size=10}SYSTEM MONITOR${font}  
+${hr}  
+${color}SYSTEM: ${alignr}${nodename}  
+${color}KERNEL: ${alignr}${kernel}  
+${color}UPTIME: ${alignr}${uptime}  
+${hr}  
+${color}CPU ${alignr}${cpu}%  
+${color}${cpubar}  
+${color}RAM ${alignr}${mem} / ${memmax}  
+${color}${membar}  
+${hr}  
+${color}PROCESSES: ${alignr}${processes}  
+${color}RUNNING: ${alignr}${running_processes}  
+${hr}  
+${color}STORAGE:  
+${color}/ ${alignr}${fs_used /} / ${fs_size /}  
+${color}${fs_bar /}  
+${hr}  
+${color}NETWORK:  
+${color}UP: ${alignr}${upspeed wlp2s0}  
+${color}DOWN: ${alignr}${downspeed wlp2s0}  
+${hr}  
+${color}${font Share Tech Mono:size=10}TOP PROCESSES:${font}  
+${color}NAME ${alignr}CPU% MEM%  
+${color}${top name 1} ${alignr}${top cpu 1} ${top mem 1}  
+${color}${top name 2} ${alignr}${top cpu 2} ${top mem 2}  
+${color}${top name 3} ${alignr}${top cpu 3} ${top mem 3}  
+${hr}  
+${color}${font Share Tech Mono:size=8}LOCATION: ${execi 300 curl -s ipinfo.io/city}, ${execi 300 curl -s ipinfo.io/country}${font}  
+${color}${font Share Tech Mono:size=8}IP: ${execi 300 curl -s ipinfo.io/ip}${font}  
+${color}${font Share Tech Mono:size=8}WEATHER: ${execi 300 curl -s wttr.in/?format="%C+%t"}${font}  
+]]  
+EOF  
+
+# Criar script de inicialização para o Conky  
+mkdir -p ~/.config/autostart  
+cat > ~/.config/autostart/conky.desktop << EOF  
+[Desktop Entry]  
+Type=Application  
+Name=Conky  
+Exec=conky -c ~/.config/conky/ctOS.conf  
+StartupNotify=false  
+Terminal=false  
+EOF  
+
+# Tornar o script executável  
+chmod +x ~/.config/autostart/conky.desktop  
+```  
+
+### Instalação do Neofetch Personalizado  
+
+```bash  
+# Instalar Neofetch  
+sudo apt install neofetch  
+
+# Criar configuração personalizada do Neofetch  
+mkdir -p ~/.config/neofetch  
+cat > ~/.config/neofetch/config.conf << 'EOF'  
+print_info() {  
+    info title  
+    info underline  
+    
+    info "OS" distro  
+    info "Host" model  
+    info "Kernel" kernel  
+    info "Uptime" uptime  
+    info "Packages" packages  
+    info "Shell" shell  
+    info "Resolution" resolution  
+    info "DE" de  
+    info "WM" wm  
+    info "WM Theme" wm_theme  
+    info "Theme" theme  
+    info "Icons" icons  
+    info "Terminal" term  
+    info "Terminal Font" term_font  
+    info "CPU" cpu  
+    info "GPU" gpu  
+    info "Memory" memory  
+    
+    info cols  
+}  
+
+# Configurações de cores  
+colors=(4 6 4 6 4 7)  
+
+# Configurações de ASCII  
+ascii_distro="auto"  
+ascii_colors=(4 6 4 6 4 7)  
+ascii_bold="on"  
+EOF  
+
+# Adicionar Neofetch ao .zshrc para exibir no início de cada sessão  
+echo "neofetch" >> ~/.zshrc  
+```  
+
+> "I add the command fetching -r to my .zshrc to show a random image every time I open a terminal."  
+
+## 10. Toques Finais e Detalhes Estéticos  
+
+Para finalizar nossa personalização Watch Dogs 1, vamos adicionar alguns toques finais que completam a experiência.  
+
+### Instalação do Figlet para Arte ASCII  
+
+```bash  
+# Instalar Figlet e fontes adicionais  
+sudo apt install figlet figlet-fonts  
+```  
+
+> "Figlet is a powerful open-source tool that allows you to transform regular text into visually striking ASCII art banners in the terminal."  
+
+> "One of the key advantages of Figlet is its simplicity."  
+
+### Criação de Banners ASCII Personalizados  
+
+```bash  
+# Criar script para gerar banner ctOS  
+cat > ~/.local/bin/ctos-banner << 'EOF'  
+#!/bin/bash  
+figlet -f slant "ctOS" | lolcat -p 1.5 -F 0.3  
+echo "Central Operating System - Chicago"  
+EOF  
+
+# Tornar o script executável  
+chmod +x ~/.local/bin/ctos-banner  
+
+# Adicionar ao .zshrc  
+echo "ctos-banner" >> ~/.zshrc  
+```  
+
+> "To use it, you simply need to provide the text you want to transform, and Figlet will automatically generate the corresponding ASCII art."  
+
+### Personalização do Cursor  
+
+```bash  
+# Baixar e instalar cursor cyberpunk  
+cd /tmp  
+wget https://github.com/yeyushengfan258/Quintom-Cursor-Theme/archive/refs/heads/master.zip  
+unzip master.zip  
+cd Quintom-Cursor-Theme-master  
+./install.sh  
+
+# Aplicar cursor  
+gsettings set org.gnome.desktop.interface cursor-theme 'Quintom_Ink'  
+```  
+
+### Personalização do Login Screen (GDM)  
+
+```bash  
+# Instalar ferramenta para personalizar GDM  
+sudo apt install libglib2.0-dev  
+git clone https://github.com/realmazharhussain/gdm-tools.git  
+cd gdm-tools  
+./install.sh  
+
+# Aplicar tema ao GDM  
+set-gdm-theme set Nordic  
+```  
+
+### Efeitos Sonoros Watch Dogs 1  
+
+```bash  
+# Criar diretório para sons  
+mkdir -p ~/.local/share/sounds/watchdogs1  
+
+# Baixar sons Watch Dogs 1 (você precisará encontrar esses arquivos)  
+# Exemplo de comando:  
+# wget https://example.com/watchdogs1_login.wav -O ~/.local/share/sounds/watchdogs1/login.wav  
+
+# Configurar sons do sistema  
+gsettings set org.gnome.desktop.sound theme-name 'watchdogs1'  
+```  
+
+### Script de Efeito de Glitch  
+
+```bash  
+# Criar script para efeito de glitch  
+cat > ~/.ctOS/scripts/glitch-effect.sh << 'EOF'  
+#!/bin/bash  
+
+# Cores  
+BLUE='\033[34m'  
+CYAN='\033[36m'  
+RESET='\033[0m'  
+
+# Função para gerar texto com glitch  
+glitch_text() {  
+    local text="$1"  
+    local length=${#text}  
+    local result=""  
+    
+    for ((i=0; i<length; i++)); do  
+        local char="${text:$i:1}"  
+        local rand=$((RANDOM % 10))  
+        
+        if [ $rand -eq 0 ]; then  
+            # Substituir com caractere aleatório  
+            result+=$(echo -e "${CYAN}$(printf \\$(printf '%03o' $((RANDOM % 93 + 33))))${RESET}")  
+        elif [ $rand -eq 1 ]; then  
+            # Duplicar caractere  
+            result+=$(echo -e "${BLUE}${char}${char}${RESET}")  
+        else  
+            # Manter caractere original  
+            result+=$(echo -e "${BLUE}${char}${RESET}")  
+        fi  
+    done  
+    
+    echo -e "$result"  
+}  
+
+# Texto original  
+TEXT="ctOS - Central Operating System"  
+
+# Efeito de glitch  
+for ((i=0; i<10; i++)); do  
+    clear  
+    glitch_text "$TEXT"  
+    sleep 0.2  
+done  
+
+# Texto final sem glitch  
+clear  
+echo -e "${BLUE}$TEXT${RESET}"  
+EOF  
+
+# Tornar o script executável  
+chmod +x ~/.ctOS/scripts/glitch-effect.sh  
+
+# Adicionar ao .zshrc para executar no início da sessão  
+echo "~/.ctOS/scripts/glitch-effect.sh" >> ~/.zshrc  
+```  
+
+## 11. Solução de Problemas Comuns  
+
+Durante a personalização, você pode encontrar alguns problemas. Aqui estão soluções para os mais comuns:  
+
+### Extensões GNOME Quebradas  
+
+> "Gnome update and broken extensions are synonyms at this point"  
+
+> "Not a problem with KDE. When are people going to learn to stop making extensions for Gnome? This is nothing new. If you want a desktop environment you can modify, Gnome isn't it. The designers have made this clear over and over for about 15 years now."  
+
+Se suas extensões quebrarem após uma atualização do GNOME:  
+
+```bash  
+# Verificar extensões compatíveis  
+gnome-extensions-app  
+
+# Atualizar extensões  
+sudo apt update && sudo apt upgrade  
+
+# Reinstalar extensões problemáticas  
+# Exemplo:  
+sudo apt reinstall gnome-shell-extension-dash-to-dock  
+```  
+
+### Problemas com Temas GTK  
+
+Se o tema GTK não for aplicado corretamente:  
+
+```bash  
+# Verificar permissões dos arquivos de tema  
+chmod -R 755 ~/.themes/Nordic  
+
+# Recarregar o tema  
+gsettings reset org.gnome.desktop.interface gtk-theme  
+gsettings set org.gnome.desktop.interface gtk-theme 'Nordic'  
+```  
+
+### Problemas com Fontes  
+
+Se as fontes não forem carregadas corretamente:  
+
+```bash  
+# Atualizar cache de fontes  
+fc-cache -f -v  
+
+# Verificar se a fonte está instalada  
+fc-list | grep "Share Tech"  
+```  
+
+### Problemas com Cairo-Dock  
+
+Se o Cairo-Dock não iniciar corretamente:  
+
+```bash  
+# Reiniciar Cairo-Dock  
+killall cairo-dock  
+cairo-dock -c &  
+
+# Verificar logs  
+cat ~/.xsession-errors | grep cairo-dock  
+
+# Reinstalar Cairo-Dock  
+sudo apt purge cairo-dock cairo-dock-plug-ins  
+sudo apt install cairo-dock cairo-dock-plug-ins  
+```  
+
+### Restaurar Configurações Originais  
+
+Se você precisar reverter para as configurações originais:  
+
+```bash  
+# Restaurar configurações do GNOME  
+dconf load /org/gnome/ < ~/gnome-settings-backup.dconf  
+
+# Restaurar arquivos de configuração  
+cp ~/.zshrc.bak ~/.zshrc || cp ~/.bashrc.bak ~/.bashrc  
+```  
+
+## 12. Conclusão  
+
+Parabéns! Você transformou com sucesso seu ZorionOS em um ambiente de trabalho inspirado no DedSec do Watch Dogs 1. Vamos recapitular o que conseguimos:  
+
+### Resumo das Personalizações Realizadas  
+
+| Categoria | Componentes Personalizados | Resultado |  
+|-----------|----------------------------|-----------|  
+| Tema Visual | GTK, Shell, Ícones | Estética cyberpunk com cores azuis e pretas |  
+| Fontes | Interface, Terminal | Tipografia técnica e quadrada |  
+| Terminal | ZSH, Tema ctOS, Plugins | Terminal estilo sistema de vigilância |  
+| Dock/Barra | Cairo-Dock, Extensões | Interface minimalista e funcional |  
+| Wallpapers | Chicago Noturna, ctOS | Ambientação visual Watch Dogs 1 |  
+| Monitoramento | Conky, Neofetch | Ferramentas de monitoramento estilizadas |  
+| Detalhes | ASCII Art, Sons, Cursores | Toques finais para imersão completa |  
+
+### Diferenças entre as Personalizações Watch Dogs 1 e Watch Dogs 2  
+
+| Elemento | Watch Dogs 1 (Esta Personalização) | Watch Dogs 2 (Personalização Anterior) |  
+|----------|-----------------------------------|--------------------------------------|  
+| Cores Principais | Azul eletrônico e preto | Verde neon e roxo |  
+| Estilo Visual | Minimalista, vigilância | Colorido, hacker |  
+| Dock | Cairo-Dock com tema ctOS | Dash to Dock com tema DedSec |  
+| Terminal | Tema ctOS com azul | Powerlevel10k com verde |  
+| Wallpapers | Chicago noturna | São Francisco colorida |  
+| Fontes | Share Tech (quadrada) | Hacked (glitch) |  
+| Conky | Estilo vigilância | Estilo hacker |  
+
+### Próximos Passos  
+
+Para continuar aprimorando sua experiência Watch Dogs 1:  
+
+1. **Explore mais extensões GNOME** compatíveis com seu sistema  
+2. **Crie scripts personalizados** para automatizar tarefas com estilo ctOS  
+3. **Personalize aplicativos individuais** como navegadores e editores de código  
+4. **Compartilhe sua configuração** com a comunidade  
+
+> "Fantastic theme, the muted colors work far better than super-vibrant with themes like this one. Way to go!"  
+
+Esta personalização não apenas transforma a aparência do seu sistema, mas também melhora sua funcionalidade, tornando-o mais eficiente e agradável de usar. A estética Watch Dogs 1 não é apenas sobre parecer um sistema de vigilância, mas também sobre ter as ferramentas certas ao seu alcance.  
+
+Lembre-se de que a personalização é um processo contínuo. Sinta-se à vontade para ajustar e refinar esses elementos conforme suas preferências evoluem. O verdadeiro espírito do Watch Dogs 1 está na liberdade de personalização e na expressão da sua individualidade através da tecnologia.  
+
+Agora você está pronto para hackear o sistema... ou pelo menos parecer que está fazendo isso!
