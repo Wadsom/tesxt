@@ -27,9 +27,17 @@ mkdir -p ~/.themes ~/.icons ~/.fonts
 git clone https://github.com/dracula/gtk.git ~/.themes/Dracula
 
 # Instalar tema Cyberpunk Neon
-wget https://github.com/Roboron3042/Cyberpunk-Neon/releases/download/1.0/Cyberpunk-Neon.tar.xz
-tar -xf Cyberpunk-Neon.tar.xz -C ~/.themes/
-rm Cyberpunk-Neon.tar.xz
+git clone https://github.com/Roboron3042/Cyberpunk-Neon.git  
+cd Cyberpunk-Neon  
+mkdir -p ~/.themes/Cyberpunk-Neon  
+cp -r theme/* ~/.themes/Cyberpunk-Neon/  
+cd .. && rm -rf Cyberpunk-Neon  
+
+# OU use outro tema neon (alternativa)  
+git clone https://github.com/daniruiz/flat-remix-gtk.git  
+cd flat-remix-gtk  
+cp -r Flat-Remix-GTK-Green-Dark ~/.themes/  
+cd .. && rm -rf flat-remix-gtk 
 ```
 
 ### Instalação de Ícones
