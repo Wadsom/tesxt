@@ -182,7 +182,15 @@ A tipografia é um elemento crucial para capturar a estética de Watch Dogs 1. V
 # Baixar a fonte Share Tech  
 cd /tmp  
 wget https://fonts.google.com/download?family=Share%20Tech -O share-tech.zip  
-unzip share-tech.zip -d share-tech  
+unzip share-tech.zip -d share-tech 
+_____________________________________
+cd /tmp  
+wget https://github.com/google/fonts/raw/main/ofl/sharetech/ShareTech-Regular.ttf  
+mkdir -p ~/.local/share/fonts/  
+cp ShareTech-Regular.ttf ~/.local/share/fonts/  
+fc-cache -f -v  
+
+_____________________________________ 
 
 # Instalar a fonte no sistema  
 cp share-tech/*.ttf ~/.local/share/fonts/  
